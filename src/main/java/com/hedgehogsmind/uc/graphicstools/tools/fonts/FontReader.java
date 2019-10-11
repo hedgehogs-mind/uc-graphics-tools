@@ -1,4 +1,4 @@
-package com.hedgehogsmind.uc.graphicstools.graphics;
+package com.hedgehogsmind.uc.graphicstools.tools.fonts;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

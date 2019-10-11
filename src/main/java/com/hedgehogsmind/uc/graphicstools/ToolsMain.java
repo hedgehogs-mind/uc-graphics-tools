@@ -3,7 +3,7 @@ package com.hedgehogsmind.uc.graphicstools;
 import com.hedgehogsmind.uc.graphicstools.exceptions.ArgumentParsingException;
 import com.hedgehogsmind.uc.graphicstools.exceptions.ArgumentsMissingException;
 import com.hedgehogsmind.uc.graphicstools.target.TargetPlatform;
-import com.hedgehogsmind.uc.graphicstools.tools.FontEncoder;
+import com.hedgehogsmind.uc.graphicstools.tools.fonts.FontEncoder;
 import com.hedgehogsmind.uc.graphicstools.tools.Tool;
 import com.hedgehogsmind.uc.graphicstools.tools.exceptions.ToolExecutionException;
 

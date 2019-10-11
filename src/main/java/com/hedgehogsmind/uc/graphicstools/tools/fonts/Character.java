@@ -1,4 +1,6 @@
-package com.hedgehogsmind.uc.graphicstools.graphics;
+package com.hedgehogsmind.uc.graphicstools.tools.fonts;
+
+import com.hedgehogsmind.uc.graphicstools.tools.PixelDirection;
 
 import java.util.Arrays;
 import java.util.Objects;
