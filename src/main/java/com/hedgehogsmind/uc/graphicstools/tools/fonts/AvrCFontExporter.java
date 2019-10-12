@@ -10,12 +10,22 @@ public class AvrCFontExporter implements FontExporter {
     public static int SETTINGS_BYTE_BC_BIT = 7;
     public static int SETTINGS_BYTE_BCS_BIT = 6;
 
+    public static int SETTINGS_BYTE_HV_BIT = 5;
+    public static int SETTINGS_BYTE_VH_BIT = 4;
+
     @Override
     public String exportFontAsUTF8(Font font, final PixelDirection pixelDirection, final String format) {
         final StringBuilder sb = new StringBuilder();
 
         if ( !format.equals("bc") && !format.equals("bcs") ) throw new IllegalArgumentException("Format '"+format+"' invalid.");
         final boolean removePixelsIfEmpty = format.equals("bcs");
+
+        System.out.println("AvrCFontExporter:");
+        System.out.println("");
+        System.out.println("Exporting font with:");
+        System.out.println("\t- pixel direction: "+pixelDirection.name());
+        System.out.println("\t- array format: "+(format.equals("bc") ? "Simple byte chain, hasPixelsFlag-Byte & bytes for pixels -> per char" :
+                "Byte chain with empty chars, per char hasPixelsFlag-Byte & if not empty bytes for pixels, if empty hasPixelsFlag-Byte of next char follows"));
 
         final List<Byte> reformattedBytes = new ArrayList<>();
         for ( final Character c : font.getCharacters() ) {
@@ -28,6 +38,9 @@ public class AvrCFontExporter implements FontExporter {
         fontData[0] = 0;
         if ( format.equals("bc") ) fontData[0] |= (1 << SETTINGS_BYTE_BC_BIT);
         if ( format.equals("bcs") ) fontData[0] |= (1 << SETTINGS_BYTE_BCS_BIT);
+        if ( pixelDirection.equals(PixelDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM) ) fontData[0] |= (1 << SETTINGS_BYTE_HV_BIT);
+        if ( pixelDirection.equals(PixelDirection.TOP_TO_BOTTOM_LEFT_TO_RIGHT) ) fontData[0] |= (1 << SETTINGS_BYTE_VH_BIT);
+
         fontData[1] = (byte) font.getWidth();
         fontData[2] = (byte) font.getHeight();
 
@@ -50,7 +63,7 @@ public class AvrCFontExporter implements FontExporter {
         sb.append(System.lineSeparator());
         sb.append("const uint8_t ");
         sb.append(font.getName());
-        sb.append("_"+format+"[");
+        sb.append("_"+format+"_"+pixelDirection.getKey()+"[");
         sb.append(bytes);
         sb.append("] PROGMEM = {");
 
