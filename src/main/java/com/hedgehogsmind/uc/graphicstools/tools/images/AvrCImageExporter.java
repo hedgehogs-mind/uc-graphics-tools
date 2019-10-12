@@ -59,6 +59,7 @@ public class AvrCImageExporter implements ImageExporter {
 
         //Generate header file
         final StringBuilder sb = new StringBuilder();
+        final String fontNameHeaderDefine = (imageName+"_img_"+pixelDirection.getKey()).toUpperCase();
 
         sb.append("/*"+System.lineSeparator()+" * µC-Graphics-Tools - AvrCImageExporter - ");
         sb.append(imageName);
@@ -68,6 +69,15 @@ public class AvrCImageExporter implements ImageExporter {
         sb.append(" * uint8_t height_index   = 2;"+System.lineSeparator());
         sb.append(" *"+System.lineSeparator()+" */"+System.lineSeparator());
         sb.append(System.lineSeparator());
+
+        sb.append("#ifndef ");
+        sb.append(fontNameHeaderDefine);
+        sb.append(System.lineSeparator());
+        sb.append("#define ");
+        sb.append(fontNameHeaderDefine);
+        sb.append(System.lineSeparator());
+
+
         sb.append("#include <avr/pgmspace.h>");
         sb.append(System.lineSeparator());
         sb.append(System.lineSeparator());
@@ -84,6 +94,10 @@ public class AvrCImageExporter implements ImageExporter {
         }
 
         sb.append("};");
+        sb.append(System.lineSeparator());
+        sb.append(System.lineSeparator());
+
+        sb.append("#endif");
         sb.append(System.lineSeparator());
         return sb.toString();
     }

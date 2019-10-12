@@ -50,6 +50,8 @@ public class AvrCFontExporter implements FontExporter {
             fontData[3+i] = reformattedBytes.get(i);
         }
 
+        final String fontNameHeaderDefine = (font.getName()+"_font_"+format+"_"+pixelDirection.getKey()).toUpperCase();
+
         sb.append("/*"+System.lineSeparator()+" * AvrCFontExporter - ");
         sb.append(font.getName());
         sb.append(System.lineSeparator()+" *"+System.lineSeparator());
@@ -57,6 +59,15 @@ public class AvrCFontExporter implements FontExporter {
         sb.append(" * uint8_t width_index    = 1;"+System.lineSeparator());
         sb.append(" * uint8_t height_index   = 2;"+System.lineSeparator());
         sb.append(" *"+System.lineSeparator()+" */"+System.lineSeparator());
+        sb.append(System.lineSeparator());
+
+        sb.append("#ifndef ");
+        sb.append(fontNameHeaderDefine);
+        sb.append(System.lineSeparator());
+        sb.append("#define ");
+        sb.append(fontNameHeaderDefine);
+        sb.append(System.lineSeparator());
+
         sb.append(System.lineSeparator());
         sb.append("#include <avr/pgmspace.h>");
         sb.append(System.lineSeparator());
@@ -74,6 +85,10 @@ public class AvrCFontExporter implements FontExporter {
         }
 
         sb.append("};");
+        sb.append(System.lineSeparator());
+        sb.append(System.lineSeparator());
+
+        sb.append("#endif");
         sb.append(System.lineSeparator());
         return sb.toString();
     }

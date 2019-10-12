@@ -54,7 +54,7 @@ header file. Their are two available formats:
         - Bit 4 == 1: pixel direction is 'vh' (pixels are sorted top to bottom, left to right)
     - Byte 1: width of characters
     - Byte 2: height of characters
-    - Byte 3 & up: pixels (__encoded LSB__)
+    - Byte 3 & up: pixels (__encoded LSB__, every last char byte zero padded)
         - For every char:
             - One hasPixels-flag byte: if char not empty 1, if char empty 0
             - Then the pixel bytes follow (pixels as bits LSB) (``pixel_bytes_per_char = (width*height/8) + ((width/height) % 8) > 0 ? 1 : 0)``)
@@ -76,7 +76,7 @@ header file. Their are two available formats:
         - Bit 6 == 1: format is 'bcs'
         - Bit 5 == 1: pixel direction is 'hv' (pixels are sorted left to right, top to bottom, LSB)
         - Bit 4 == 1: pixel direction is 'vh' (pixels are sorted top to bottom, left to right, LSB)
-    - Byte 3 & up: pixels (__encoded LSB__)
+    - Byte 3 & up: pixels (__encoded LSB__,  every last char byte zero padded)
         - For every char:
             - One hasPixels-flag byte: if char not empty 1, if char empty 0
             - If the character is empty, the next byte will be the hasPixels-flag
@@ -123,6 +123,7 @@ There is only one format the images will be encoded as:
 - Byte 3 & up: pixels
     - Pixels are __encoded LSB__, each pixel is represented by a bit in the byte chain
     - ``bytes_per_img = (width * height / 8) + ( ((width * height) % 8) > 0 ? 1 : 0 )``
+    - the last byte will be zero padded
  
 Call the FontEncoder by using the key __inc__:
 
