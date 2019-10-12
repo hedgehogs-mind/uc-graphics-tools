@@ -48,7 +48,7 @@ header file. Their are two available formats:
 
 - Simple byte chain (format key __'bc'__)
     - Byte 0: settings byte
-        - Bit 7 == 1: format is 'bc' (here this is set)
+        - Bit 7 == 1: format is 'bc' (here, this bit is set)
         - Bit 6 == 1: format is 'bcs'
         - Bit 5 == 1: pixel direction is 'hv' (pixels are sorted left to right, top to bottom)
         - Bit 4 == 1: pixel direction is 'vh' (pixels are sorted top to bottom, left to right)
@@ -72,8 +72,8 @@ header file. Their are two available formats:
 
 - Byte chain with search (format key __'bcs'__):
     - Byte 0: settings byte
-        - Bit 7 == 1: format is 'bc' (here this is set)
-        - Bit 6 == 1: format is 'bcs'
+        - Bit 7 == 1: format is 'bc' 
+        - Bit 6 == 1: format is 'bcs' (here, this bit is set)
         - Bit 5 == 1: pixel direction is 'hv' (pixels are sorted left to right, top to bottom, LSB)
         - Bit 4 == 1: pixel direction is 'vh' (pixels are sorted top to bottom, left to right, LSB)
     - Byte 3 & up: pixels (__encoded LSB__,  every last char byte zero padded)
