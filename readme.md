@@ -1,6 +1,16 @@
+# Table of Contents 
+   * [µC-Graphics-Tools](#µc-graphics-tools)
+      * [General usage](#general-usage)
+      * [Currently available tools](#currently-available-tools)
+         * [FontEncoder - <em>fenc</em>](#fontencoder---fenc)
+         * [ImageEncoder - <em>inc</em>](#imageencoder---inc)
+      * [Tips](#tips)
+         * [Font creation](#font-creation)
+         * [Examples](#examples)
+
 # µC-Graphics-Tools
 
-is a collection of tools used in the context
+... is a collection of tools used in the context
 of visualizations with microcontrollers. The counterpart
 project/repository will be __µc-Graphics__. Each tool is
 identified by a tool key (simple string). Each tool has
