@@ -33,7 +33,7 @@ public class FontEncoder extends Tool {
         TOOL_REQUIRED_ARGUMENTS.put("D", "Order/direction of pixels: hv (left to right then to bottom) or vh (top to bottom, left to right).");
 
         TOOL_OPTIONAL_ARGUMENTS = new HashMap<>();
-        TOOL_OPTIONAL_ARGUMENTS.put("O", "Output file: file to export header content to. Default export location is 'IMAGE_NAME.h'.");
+        TOOL_OPTIONAL_ARGUMENTS.put("O", "Output file/directory: file to export header content to. Default export location is 'IMAGE_NAME.h'. If value is only a directory, file will be saved to the directory with the default name.");
 
         TOOL_SUPPORTED_PLATFORMS = new HashSet<>();
         TOOL_SUPPORTED_PLATFORMS.add(TargetPlatform.AVR_GCC);
@@ -67,21 +67,34 @@ public class FontEncoder extends Tool {
         try {
             final Font font = FontReader.getInstance().readFont(ImageIO.read(inputFile), fontName);
 
-            if ( platform == TargetPlatform.AVR_GCC ) {
-                final AvrCFontExporter fontExporter = new AvrCFontExporter();
-                final String headerFont = fontExporter.exportFontAsUTF8(font, direction, format);
+            try {
+                if (platform == TargetPlatform.AVR_GCC) {
+                    final AvrCFontExporter fontExporter = new AvrCFontExporter();
+                    final String headerFont = fontExporter.exportFontAsUTF8(font, direction, format);
 
-                final Optional<String> preciseOutputFileName = Optional.ofNullable(optionalArguments.get("O"));
-                final File outputFile = new File(preciseOutputFileName.isPresent() ? preciseOutputFileName.get() : fontName+"_"+format+".h");
-                if ( !outputFile.exists() ) outputFile.createNewFile();
+                    final Optional<String> preciseOutputFileName = Optional.ofNullable(optionalArguments.get("O"));
+                    String outputFileName = fontName +"_"+format+"_"+directionKey+ ".h";
+                    if (preciseOutputFileName.isPresent()) {
+                        if (preciseOutputFileName.get().endsWith(File.separator)) {
+                            outputFileName = preciseOutputFileName.get() + fontName +"_"+format+"_"+directionKey+ ".h";
+                            new File(preciseOutputFileName.get()).mkdirs();
+                        } else {
+                            outputFileName = preciseOutputFileName.get();
+                        }
+                    }
+                    final File outputFile = new File(outputFileName);
+                    if (!outputFile.exists()) outputFile.createNewFile();
 
-                final FileWriter writer = new FileWriter(outputFile);
-                writer.write(headerFont);
-                writer.close();
+                    final FileWriter writer = new FileWriter(outputFile);
+                    writer.write(headerFont);
+                    writer.close();
 
-                return "Saved font as '"+outputFile.getName()+"'.";
-            } else {
-                throw new RuntimeException("Unsupported platform '"+platform+"'.");
+                    return "Saved font in/as '" + outputFileName + "'.";
+                } else {
+                    throw new RuntimeException("Unsupported platform '" + platform + "'.");
+                }
+            } catch ( IOException e ) {
+                throw new ToolExecutionException(e.getMessage(), e);
             }
 
         } catch ( IOException e ) {
