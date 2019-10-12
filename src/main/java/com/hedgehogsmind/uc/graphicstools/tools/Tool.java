@@ -50,6 +50,11 @@ public abstract class Tool {
 
     public abstract String execute(Map<String, String> requiredArguments, Map<String, String> optionalArguments) throws ToolExecutionException;
 
+    public boolean supportsPlatform(final TargetPlatform targetPlatform) {
+        return this.supportedTargetPlatforms.stream()
+                    .anyMatch(tp -> tp.equals(targetPlatform));
+    }
+
     public String getToolKey() {
         return toolKey;
     }

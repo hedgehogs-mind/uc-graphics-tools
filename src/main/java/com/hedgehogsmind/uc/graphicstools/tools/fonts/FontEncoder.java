@@ -72,18 +72,24 @@ public class FontEncoder extends Tool {
                     final AvrCFontExporter fontExporter = new AvrCFontExporter();
                     final String headerFont = fontExporter.exportFontAsUTF8(font, direction, format);
 
-                    final Optional<String> preciseOutputFileName = Optional.ofNullable(optionalArguments.get("O"));
-                    String outputFileName = fontName +"_"+format+"_"+directionKey+ ".h";
-                    if (preciseOutputFileName.isPresent()) {
-                        if (preciseOutputFileName.get().endsWith(File.separator)) {
-                            outputFileName = preciseOutputFileName.get() + fontName +"_"+format+"_"+directionKey+ ".h";
-                            new File(preciseOutputFileName.get()).mkdirs();
+                    final String inputFileNameWithoutPath = inputFile.getName();
+                    final String inputFileNameWithoutPathAndSuffix = inputFileNameWithoutPath.substring(0, inputFileNameWithoutPath.lastIndexOf("."));
+
+                    final Optional<String> outputOverride = Optional.ofNullable(optionalArguments.get("O"));
+                    final String outputFileNameExtension = "_font_"+format+"_"+directionKey+".h";
+                    String outputFileName = inputFileNameWithoutPathAndSuffix+outputFileNameExtension;
+                    if ( outputOverride.isPresent() ) {
+                        String directoriesToCreateIfNecessary;
+                        if ( outputOverride.get().endsWith(File.separator) ) {
+                            directoriesToCreateIfNecessary = outputOverride.get();
+                            outputFileName = directoriesToCreateIfNecessary+inputFileNameWithoutPathAndSuffix+outputFileNameExtension;
                         } else {
-                            outputFileName = preciseOutputFileName.get();
+                            directoriesToCreateIfNecessary = outputOverride.get().substring(0, outputOverride.get().lastIndexOf(File.separator));
+                            outputFileName = outputOverride.get();
                         }
+                        if ( !directoriesToCreateIfNecessary.isEmpty() ) new File(directoriesToCreateIfNecessary).mkdirs();
                     }
                     final File outputFile = new File(outputFileName);
-                    if (!outputFile.exists()) outputFile.createNewFile();
 
                     final FileWriter writer = new FileWriter(outputFile);
                     writer.write(headerFont);

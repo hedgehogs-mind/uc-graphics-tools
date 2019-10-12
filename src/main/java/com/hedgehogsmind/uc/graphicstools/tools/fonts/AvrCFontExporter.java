@@ -63,7 +63,7 @@ public class AvrCFontExporter implements FontExporter {
         sb.append(System.lineSeparator());
         sb.append("const uint8_t ");
         sb.append(font.getName());
-        sb.append("_"+format+"_"+pixelDirection.getKey()+"[");
+        sb.append("_font_"+format+"_"+pixelDirection.getKey()+"[");
         sb.append(bytes);
         sb.append("] PROGMEM = {");
 

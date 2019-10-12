@@ -6,6 +6,7 @@ import com.hedgehogsmind.uc.graphicstools.target.TargetPlatform;
 import com.hedgehogsmind.uc.graphicstools.tools.fonts.FontEncoder;
 import com.hedgehogsmind.uc.graphicstools.tools.Tool;
 import com.hedgehogsmind.uc.graphicstools.tools.exceptions.ToolExecutionException;
+import com.hedgehogsmind.uc.graphicstools.tools.images.ImageEncoder;
 
 import java.util.*;
 
@@ -28,6 +29,7 @@ public class ToolsMain {
     static {
         tools = new HashSet<>();
         tools.add(new FontEncoder());
+        tools.add(new ImageEncoder());
     }
 
     public static void main(final String args[]) throws Exception {
@@ -35,20 +37,20 @@ public class ToolsMain {
 
         if (args.length == 0) {
             printGeneralUsage(Optional.empty());
-        }
+        } else {
+            try {
+                final Map<String, String> arguments = parseArguments(args);
+                executeByArguments(arguments);
+                System.out.println("\n"+horizontalLine+"\n");
+                System.out.println("END - µC-Graphics-Tools");
 
-        try {
-            final Map<String, String> arguments = parseArguments(args);
-            executeByArguments(arguments);
-            System.out.println("\n"+horizontalLine+"\n");
-            System.out.println("END - µC-Graphics-Tools");
-
-        } catch ( ArgumentParsingException e ) {
-            printGeneralUsage(Optional.of(e.getMessage()));
-        } catch ( ArgumentsMissingException e ) {
-            printGeneralUsage(Optional.of(e.getMessage()));
-        } catch ( ToolExecutionException e ) {
-            printGeneralUsage(Optional.of(e.getMessage()));
+            } catch ( ArgumentParsingException e ) {
+                printGeneralUsage(Optional.of(e.getMessage()));
+            } catch ( ArgumentsMissingException e ) {
+                printGeneralUsage(Optional.of(e.getMessage()));
+            } catch ( ToolExecutionException e ) {
+                printGeneralUsage(Optional.of(e.getMessage()));
+            }
         }
     }
 
@@ -63,6 +65,7 @@ public class ToolsMain {
                 break;
             }
         }
+        if ( requestedTool == null ) throw new ToolExecutionException("Requested tool '"+toolKey+"' does not exist.");
 
         try {
             final Map<String, String> requiredArguments = selectArguments(requestedTool.getRequiredArguments().keySet(), arguments, true);
@@ -174,6 +177,7 @@ public class ToolsMain {
         for (final TargetPlatform targetPlatform : tool.getSupportedTargetPlatforms() ) {
             System.out.println("\t\t- ["+targetPlatform.getPlatformKey()+"] '"+targetPlatform.getPlatformName()+"': "+targetPlatform.getDescription());
         }
+        System.out.println("");
     }
 
 }
