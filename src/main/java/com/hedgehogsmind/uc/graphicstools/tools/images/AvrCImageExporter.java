@@ -45,13 +45,13 @@ public class AvrCImageExporter implements ImageExporter {
         int byte_index = 3;
         if ( pixelDirection == PixelDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM ) {
             for ( int i = 0; i < inputImage.getWidth()*inputImage.getHeight(); i++ ) {
-                if ( i%8 == 0 ) byte_index++;
-                if ( (inputImage.getRGB(i%w, i/w) & 0x00111111) == 0x00000000 ) img_data[byte_index] |= (1 << (i%8));
+                if ( (inputImage.getRGB(i%w, i/w) & 0x00FFFFFF) == 0x00000000 ) img_data[byte_index] |= (1 << (i%8));
+                if ( i%8 == 7 ) byte_index++;
             }
         } else if ( pixelDirection == PixelDirection.TOP_TO_BOTTOM_LEFT_TO_RIGHT ) {
             for ( int i = 0; i < inputImage.getWidth()*inputImage.getHeight(); i++ ) {
-                if ( i%8 == 0 ) byte_index++;
-                if ( (inputImage.getRGB(i/h, i%h) & 0x00111111) == 0x00000000 ) img_data[byte_index] |= (1 << (i%8));
+                if ( (inputImage.getRGB(i/h, i%h) & 0x00FFFFFF) == 0x00000000 ) img_data[byte_index] |= (1 << (i%8));
+                if ( i%8 == 7 ) byte_index++;
             }
         } else {
             throw new RuntimeException("Unknown pixel direction '"+pixelDirection+"'.");
