@@ -1,0 +1,16 @@
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/images/AvrCImageExporter.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/fonts/Font.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/ToolsMain.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/exceptions/ArgumentParsingException.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/images/ImageExporter.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/images/ImageEncoder.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/target/TargetPlatform.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/exceptions/ToolExecutionException.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/fonts/Character.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/Tool.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/fonts/AvrCFontExporter.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/exceptions/ArgumentsMissingException.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/fonts/FontEncoder.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/PixelDirection.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/fonts/FontExporter.java
+/Users/peter/IdeaProjects/uc-Graphics-Tools/src/main/java/com/hedgehogsmind/uc/graphicstools/tools/fonts/FontReader.java
