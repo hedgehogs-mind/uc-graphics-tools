@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef AVR_5_by_8_font_bc_hv
-#define AVR_5_by_8_font_bc_hv
+#ifndef AVR_5_BY_8_FONT_BC_HV
+#define AVR_5_BY_8_FONT_BC_HV
 
 #include <avr/pgmspace.h>
 
